@@ -8,7 +8,7 @@
 struct EncodedRules {
     std::vector<std::pair<int, std::vector<int>>> encodedRules;
     std::map<int, char> terminalsCodes;
-    std::vector<int*> attainable;
+    std::vector<std::vector<int>> attainable;
     int codeCount;
 
     EncodedRules(const std::vector<std::pair<std::string, std::string>>&, char);

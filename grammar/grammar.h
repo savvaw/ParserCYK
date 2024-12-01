@@ -11,6 +11,8 @@ protected:
     char start;
     std::string nonTerminals, terminals;
     std::vector<std::pair<std::string, std::string>> rules;
+    bool checkSymbolsCorrectness(const std::string& stringToCheck);
+
 protected:
     void readGrammar();
 

@@ -20,6 +20,7 @@ void EncodedRules::calcAttainable() {
         if (rule.second.size() == 1) {
             if (terminalsCodes[rule.second[0]] == 0 && rule.first != rule.second[0]) {
                 graph[rule.first].push_back(rule.second[0]);
+                std::cerr << rule.first << " " << rule.second[0] << std::endl;
             }
         }
     }
@@ -28,13 +29,7 @@ void EncodedRules::calcAttainable() {
     for (int i = 0; i < codeCount; ++i) {
         std::fill_n(used, codeCount, 0);
         dfs(i, used, graph);
-        attainable[i] = used;
-    }
-    for (int i = 0; i < attainable.size(); ++i) {
-        for (int j = 0; j < codeCount; ++j) {
-            std::cerr << attainable[i][j] << " ";
-        }
-        std::cerr << std::endl;
+        attainable[i].assign(used, used + codeCount);
     }
 }
 
@@ -85,13 +80,9 @@ EncodedRules::EncodedRules(const std::vector<std::pair<std::string, std::string>
         }
         encodedRules.push_back({vertex, {symbolCode[rule.second[0]], lastSymbolCode}});
     }
-    for (auto p : terminalsCodes) {
-        std::cerr << p.first << " " << p.second << std::endl;
-    }
 
     codeCount = currCode + 1;
     calcAttainable();
-    std::cerr << "bop bop bop" << std::endl;
     for (const auto& rule : encodedRules) {
         std::cerr << rule.first << " -> ";
         for (auto c : rule.second) {
